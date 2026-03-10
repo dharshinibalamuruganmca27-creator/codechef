@@ -1,0 +1,43 @@
+import sys
+
+# Using sys.stdin.read for faster input handling in competitive programming
+input = sys.stdin.read
+
+def solve():
+    data = input().split()
+    if not data:
+        return
+    
+    t = int(data[0])
+    idx = 1
+    results = []
+    
+    for _ in range(t):
+        n = int(data[idx])
+        p = list(map(int, data[idx+1 : idx+1+n]))
+        idx += 1 + n
+        
+        # 0-based indexing is often easier to handle
+        pos1 = 0
+        posN = 0
+        
+        for i in range(n):
+            if p[i] == 1:
+                pos1 = i
+            if p[i] == n:
+                posN = i
+        
+        # Swaps to move 1 to index 0: pos1
+        # Swaps to move N to index n-1: (n - 1) - posN
+        ans = pos1 + (n - 1 - posN)
+        
+        # If 1 is to the right of N, they cross each other once
+        if pos1 > posN:
+            ans -= 1
+            
+        results.append(str(ans))
+    
+    sys.stdout.write("\n".join(results) + "\n")
+
+if __name__ == "__main__":
+    solve()
