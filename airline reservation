@@ -1,0 +1,38 @@
+import sys
+
+def solve():
+    # Read all input at once for faster processing of large T
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+    
+    T = int(input_data[0])
+    pointer = 1
+    
+    results = []
+    for _ in range(T):
+        # Extract A, B, C, D, E for each test case
+        A = int(input_data[pointer])
+        B = int(input_data[pointer + 1])
+        C = int(input_data[pointer + 2])
+        D = int(input_data[pointer + 3])
+        E = int(input_data[pointer + 4])
+        pointer += 5
+        
+        # Check all three combinations:
+        # 1. Check A & B, carry C
+        # 2. Check A & C, carry B
+        # 3. Check B & C, carry A
+        if (A + B <= D and C <= E) or \
+           (A + C <= D and B <= E) or \
+           (B + C <= D and A <= E):
+            results.append("YES")
+        else:
+            results.append("NO")
+            
+    
+    sys.stdout.write("\n".join(results) + "\n")
+
+if __name__ == "__main__":
+    solve()
+
