@@ -1,0 +1,39 @@
+import sys
+from collections import Counter
+
+def solve():
+    # Use fast I/O
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+    
+    ptr = 0
+    t = int(input_data[ptr])
+    ptr += 1
+    
+    results = []
+    for _ in range(t):
+        n = int(input_data[ptr])
+        s = input_data[ptr+1]
+        ptr += 2
+        
+        # If length is odd, they can't have the same length strings
+        if n % 2 != 0:
+            results.append("NO")
+            continue
+            
+        # Count occurrences of each character
+        counts = Counter(s)
+        possible = True
+        for char in counts:
+            # If any character count is odd, they can't split it equally
+            if counts[char] % 2 != 0:
+                possible = False
+                break
+        
+        results.append("YES" if possible else "NO")
+        
+    sys.stdout.write("\n".join(results) + "\n")
+
+if __name__ == "__main__":
+    solve()
